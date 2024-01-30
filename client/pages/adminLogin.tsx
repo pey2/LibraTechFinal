@@ -17,18 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import Link from 'next/link'
 
 const formSchema = z.object({
   username: z.string().min(2, {
-    message: "Please input username.",
+    message: "Please enter username",
   }),
-    password: z.string().min(3, {
-    message: "Please input password.",
+    password: z.string().min(6, {
+    message: "Please enter your password",
   }),
 })
  
-console.log("Hello World")
+
 function Login() {
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,8 +42,15 @@ function Login() {
     console.log(values)
   }  
   return (
-    <section>
-        <Form {...form}>
+    <section className='bg-green-100 h-screen flex items-center justify-center'>
+      <div className='box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
+      <div className='grid grid-cols-1'>
+        <div className='text-center text-3xl mb-5'>
+        <strong>ADMIN</strong>
+      </div>
+
+      <div>
+<Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
@@ -77,9 +83,14 @@ function Login() {
             </FormItem>
           )}
         />
+        <div className='text-center'>
         <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
+      </div>
+      </div>
+      </div>
     </section>
   )
 }

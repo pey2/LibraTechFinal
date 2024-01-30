@@ -62,9 +62,16 @@ function signup() {
   }  
 
   return (
-    <section>
+    <section className='bg-green-100 flex items-center justify-center'>
+      <div className='box-content w-6/12 p-4 border-4 bg-green-500 rounded-xl'>
+        <div className='grid grid-cols-1'>
+          <div className='text-center text-3xl mb-5'>
+          <strong>SIGN UP</strong>
+          </div>
+
+          <div>
         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <FormField
           control={form.control}
           name="username"
@@ -176,10 +183,17 @@ function signup() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className='text-center'>
+            <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
         
+          </div>
+
+        </div>
+
+      </div>
     </section>
   )
 }
