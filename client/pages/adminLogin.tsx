@@ -46,7 +46,7 @@ function Login() {
     axios.post('http://localhost:5000/adminLogin', {username, password})
         .then(res => {
             console.log(res)
-            if (res.data === "Login Successfully") {
+            if (res.data === "Login Successfully.") {
               // Redirect to "/adminBooks" only if authentication was successful
               window.location.href = "/adminBooks";
             } else {

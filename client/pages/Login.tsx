@@ -31,10 +31,6 @@ const formSchema = z.object({
  
 
 function Login() {
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ type: '', message: '' });
-  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,15 +39,6 @@ function Login() {
     },
   })
 
-  function openModal(type: string, message: string) {
-    setModalContent({ type, message });
-    setModalOpen(true);
-  }
-
-  function closeModal() {
-    setModalOpen(false);
-  }
- 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
 
