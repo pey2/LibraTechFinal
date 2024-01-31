@@ -27,8 +27,6 @@ function UpdateBook() {
                 setAuthor(bookData.Author);
                 setPublisher(bookData.Publisher);
                 setGenre(bookData.Genre);
-
-                // console.log(bookData.ISBN)
             })
             .catch(err => console.log(err));
     }, [DeweyDec]);
