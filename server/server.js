@@ -24,6 +24,20 @@ app.get("/", (req, res) => {
     })
 })
 
+app.get("/getBook/:DeweyDec", (req, res) => {
+    const sql = "SELECT * FROM books_t WHERE DeweyDec = ?";
+    const values = [
+        req.params.DeweyDec
+    ]
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(data);
+    })
+})
+
 app.post('/create', (req, res) => {
     const sql = "INSERT INTO books_t (DeweyDec, ISBN, Title, Author, Publisher, Genre, Status) VALUES (?)";
     const values = [
