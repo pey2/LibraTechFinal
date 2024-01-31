@@ -1,15 +1,15 @@
 import React from 'react'
-import Nav from './Nav';
+import AdminNav from './AdminNav'
 
-function studentBorrow() {
+function adminUsers() {
   return (
     <div className='bg-green-100 h-screen'>
+    <AdminNav />
         <section>
-            <Nav />
+            Manage Users
         </section>
-
     </div>
   )
 }
 
-export default studentBorrow
+export default adminUsers

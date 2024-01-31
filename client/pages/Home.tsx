@@ -1,15 +1,15 @@
 import React from 'react'
-import Nav from './Nav';
+import Nav from './Nav'
 
-function studentBorrow() {
+function Home() {
   return (
     <div className='bg-green-100 h-screen'>
+        <Nav />
         <section>
-            <Nav />
+            Welcome to LibraTech
         </section>
-
     </div>
   )
 }
 
-export default studentBorrow
+export default Home

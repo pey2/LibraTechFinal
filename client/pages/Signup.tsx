@@ -78,7 +78,8 @@ function signup() {
   }  
 
   return (
-    <section>
+    <div className='bg-green-100'>
+   <section>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -197,6 +198,7 @@ function signup() {
     </Form>
         
     </section>
+    </div>
   )
 }
 

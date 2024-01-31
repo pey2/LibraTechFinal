@@ -57,6 +57,7 @@ function Login() {
         
   }  
   return (
+    <div className='bg-green-100 h-screen'>
     <section>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -99,6 +100,7 @@ function Login() {
         <Link href="/adminLogin">Login as admin</Link>
     </Button>
     </section>
+    </div>
   )
 }
 

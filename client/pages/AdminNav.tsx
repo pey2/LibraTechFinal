@@ -1,17 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 
-function Nav() {
+function AdminNav() {
   return (
     <nav className="bg-green-800 text-white p-4">
       <div className="container mx-auto flex items-center justify-between">
-        <Link href="/Home" passHref>
+        <Link href="/adminBooks" passHref>
           <div className="text-2xl cursor-pointer"><strong>LibraTech</strong></div>
         </Link>
 
         <div className="flex gap-5 font-bold">
-          <NavItem href="/studentBooks">Books</NavItem>
-          <NavItem href="/studentBorrow">Borrowed Books</NavItem>
+          <NavItem href="/adminBooks">Books</NavItem>
+          <NavItem href="/adminBorrow">Borrowed Books</NavItem>
+          <NavItem href="/adminUsers">Manage Users</NavItem>
           <NavItem href="/">Logout</NavItem>
         </div>
       </div>
@@ -32,4 +33,4 @@ function NavItem({ href, children }: NavItemProps) {
   );
 }
 
-export default Nav;
+export default AdminNav;

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { error } from 'console';
+import AdminNav from './AdminNav';
 
 interface Book {
   DeweyDec: number;
@@ -33,7 +33,9 @@ function adminBooks() {
   }
     
   return (
-    <section className='d-flex vh-100 justify-content-center align-items-center'>
+    <div className='bg-green-100 h-screen'>
+        <AdminNav />
+   <section className='d-flex vh-100 justify-content-center align-items-center'>
         <div>
             <div className='w-50 bg-white rounded'>
                 <Button>
@@ -76,6 +78,8 @@ function adminBooks() {
             </div>
         </div>
     </section>
+</div>
+ 
   )
 }
 
