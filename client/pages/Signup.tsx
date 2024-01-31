@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -17,10 +17,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import axios from 'axios'
 
 const formSchema = z.object({
-  username: z.string().min(12, {
-    message: "Student ID must be at least 12 characters.",
+  username: z.string().refine((value) => /^[a-zA-Z0-9]{4}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}$/.test(value), {
+    message: "Invalid username format. Please use the format: xxxx-xxxxx-xx-x",
   }),
   LastName: z.string().min(1, {
     message: "Please input last name.",
@@ -31,11 +32,11 @@ const formSchema = z.object({
   MiddleInitial: z.string().min(1, {
     message: "Please input Middle Initial.",
   }),
-  email: z.string().min(2, {
-    message: "Please input email.",
+  email: z.string().email({
+    message: "Please input valid email.",
   }),
-  contact: z.string().min(11, {
-    message: "Contact No. must be at least 11 characters.",
+  contact: z.string().refine((value) => /^09\d{9}$/.test(value), {
+    message: "Invalid contact number format. Please follow this format: 09XXXXXXXXX.",
   }),
     password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
@@ -44,6 +45,7 @@ const formSchema = z.object({
  
 
 function signup() {
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,27 +61,34 @@ function signup() {
  
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+
+    const StudentID = values.username
+    const LastN = values.LastName
+    const FirstN = values.FirstName
+    const MidInitial = values.MiddleInitial
+    const Email = values.email
+    const ContactNum = values.contact
+    const Password = values.password
+
+    axios.post('http://localhost:5000/signup', {StudentID, LastN, FirstN, MidInitial, Email, ContactNum, Password})
+        .then(res => {
+            console.log(res)
+            window.location.href = "/"
+        }).catch(err => console.log(err))
   }  
 
   return (
-    <section className='bg-green-100 flex items-center justify-center'>
-      <div className='box-content w-6/12 p-4 border-4 bg-green-500 rounded-xl'>
-        <div className='grid grid-cols-1'>
-          <div className='text-center text-3xl mb-5'>
-          <strong>SIGN UP</strong>
-          </div>
-
-          <div>
+    <section>
         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Student Id</FormLabel>
+              <h1>Student Id</h1>
               <FormControl>
-                <Input placeholder="xxxx-xxxxx-xx-x" {...field} />
+                <Input placeholder="xxxx-xxxxx-xx-x" {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -93,9 +102,9 @@ function signup() {
           name="LastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <h1>Last Name</h1>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="" {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -109,9 +118,9 @@ function signup() {
           name="FirstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <h1>First Name</h1>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="" {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -125,9 +134,9 @@ function signup() {
           name="MiddleInitial"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Middle Initial</FormLabel>
+              <h1>Middle Initial</h1>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="" {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -141,9 +150,9 @@ function signup() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <h1>Email</h1>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="" {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -157,9 +166,9 @@ function signup() {
           name="contact"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Contact No.</FormLabel>
+              <h1>Contact No.</h1>
               <FormControl>
-                <Input placeholder="09XXXXXXXXX" {...field} />
+                <Input placeholder="09XXXXXXXXX" {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -173,9 +182,9 @@ function signup() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <h1>Password</h1>
               <FormControl>
-                <Input type='password' {...field} />
+                <Input type='password' {...field}/>
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -183,17 +192,10 @@ function signup() {
             </FormItem>
           )}
         />
-        <div className='text-center'>
-            <Button type="submit">Submit</Button>
-        </div>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
         
-          </div>
-
-        </div>
-
-      </div>
     </section>
   )
 }

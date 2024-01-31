@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { error } from 'console';
 
 interface Book {
   DeweyDec: number;
@@ -16,11 +17,20 @@ interface Book {
 function adminBooks() {
 
     const[book, setBook] = useState<Book[]>([])
-  useEffect(() => {
-    axios.get('http://localhost:5000/')
-    .then(res => setBook(res.data))
-    .catch(err => console.log(err))
-  }, [])
+    useEffect(() => {
+        axios.get('http://localhost:5000/')
+        .then(res => setBook(res.data))
+        .catch(err => console.log(err))
+    }, [])
+
+  const handleDelete = async (id: any) => {
+    try{
+        await axios.delete('http://localhost:5000/delete/' + id)
+        window.location.reload()
+    }catch(err){
+        console.log(err);
+    }
+  }
     
   return (
     <section className='d-flex vh-100 justify-content-center align-items-center'>
@@ -56,7 +66,7 @@ function adminBooks() {
                                         <Button>
                                             <Link href={`/UpdateBook?DeweyDec=${data.DeweyDec}`}>Update</Link>
                                         </Button>
-                                        <button>Delete</button>
+                                        <button onClick={e => handleDelete(data.DeweyDec)}>Delete</button>
                                     </td>
                                 </tr>
                             ))

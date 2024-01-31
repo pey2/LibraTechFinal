@@ -1,54 +1,34 @@
 import React from 'react';
-import { 
-  NavigationMenu, 
-  NavigationMenuItem, 
-  NavigationMenuLink, 
-  NavigationMenuList,  
-  navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import Link from 'next/link';
 
 function Nav() {
   return (
-    <section className='bg-green-800 text-white'>
-      <div className='text-2xl'>
-      <NavigationMenu className='text-2xl p-4'>
-        <NavigationMenuItem style={{ listStyle: 'none' }}>
-          <Link href="/Home" passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              LibraTech
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+    <nav className="bg-green-800 text-white p-4">
+      <div className="container mx-auto flex items-center justify-between">
+        <Link href="/Home" passHref>
+          <div className="text-2xl cursor-pointer"><strong>LibraTech</strong></div>
+        </Link>
 
-        <NavigationMenuList className='ml-auto flex'>
-          <NavigationMenuItem style={{ listStyle: 'none' }}>
-            <Link href="/Books" passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Books
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem style={{ listStyle: 'none' }}>
-            <Link href="/BorrowedBooks" passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Borrowed Books
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem style={{ listStyle: 'none' }}>
-            <Link href="/" passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Logout
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-
+        <div className="flex gap-5 font-bold">
+          <NavItem href="/Books">Books</NavItem>
+          <NavItem href="/BorrowedBooks">Borrowed Books</NavItem>
+          <NavItem href="/">Logout</NavItem>
+        </div>
       </div>
-    </section>
+    </nav>
+  );
+}
+
+interface NavItemProps {
+  href: string;
+  children: React.ReactNode;
+}
+
+function NavItem({ href, children }: NavItemProps) {
+  return (
+    <Link href={href} passHref>
+      <div className="ml-4 cursor-pointer">{children}</div>
+    </Link>
   );
 }
 

@@ -12,7 +12,7 @@ function UpdateBook() {
 
     const { DeweyDec } = router.query;
 
-        function handleSubmit(event: { preventDefault: () => void }) {
+    function handleSubmit(event: { preventDefault: () => void }) {
         event.preventDefault();
 
         if (!DeweyDec) {
@@ -20,7 +20,7 @@ function UpdateBook() {
             return;
         }
 
-        axios.post(`http://localhost:5000/update/`+DeweyDec, {isbn, Title, Author, Publisher, Genre })
+        axios.put(`http://localhost:5000/update/`+DeweyDec, {isbn, Title, Author, Publisher, Genre })
             .then(res => {
                 console.log(res);
                 window.location.href = "/adminBooks";

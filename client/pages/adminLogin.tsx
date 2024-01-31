@@ -17,17 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import axios from 'axios'
 
 const formSchema = z.object({
   username: z.string().min(2, {
-    message: "Please enter username",
+    message: "Please input username.",
   }),
-    password: z.string().min(6, {
-    message: "Please enter your password",
+    password: z.string().min(3, {
+    message: "Please input password.",
   }),
 })
  
-
 function Login() {
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,24 +40,32 @@ function Login() {
  
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
-  }  
-  return (
-    <section className='bg-green-100 h-screen flex items-center justify-center'>
-      <div className='box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
-      <div className='grid grid-cols-1'>
-        <div className='text-center text-3xl mb-5'>
-        <strong>ADMIN</strong>
-      </div>
+    const username = values.username
+    const password = values.password
 
-      <div>
-<Form {...form}>
+    axios.post('http://localhost:5000/adminLogin', {username, password})
+        .then(res => {
+            console.log(res)
+            if (res.data === "Login Successfully") {
+              // Redirect to "/adminBooks" only if authentication was successful
+              window.location.href = "/adminBooks";
+            } else {
+              // Handle unsuccessful authentication (e.g., display an error message)
+              alert(res.data);
+            }
+        }).catch(err => console.log(err))
+  }  
+
+  return (
+    <section>
+        <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <h1>Username</h1>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
@@ -73,7 +81,7 @@ function Login() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <h1>Password</h1>
               <FormControl>
                 <Input type='password' {...field} />
               </FormControl>
@@ -83,14 +91,9 @@ function Login() {
             </FormItem>
           )}
         />
-        <div className='text-center'>
         <Button type="submit">Submit</Button>
-        </div>
       </form>
     </Form>
-      </div>
-      </div>
-      </div>
     </section>
   )
 }

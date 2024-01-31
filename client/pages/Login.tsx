@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -18,10 +18,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
+import axios from 'axios'
 
 const formSchema = z.object({
-  username: z.string().min(12, {
-    message: "Student ID must be at least 12 characters.",
+  username: z.string().refine((value) => /^[a-zA-Z0-9]{4}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}$/.test(value), {
+    message: "Invalid username format. Please use the format: xxxx-xxxxx-xx-x",
   }),
     password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
@@ -31,6 +32,9 @@ const formSchema = z.object({
 
 function Login() {
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ type: '', message: '' });
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,27 +42,44 @@ function Login() {
       password: "",
     },
   })
+
+  function openModal(type: string, message: string) {
+    setModalContent({ type, message });
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
  
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+
+    const username = values.username
+    const password = values.password
+
+    axios.post('http://localhost:5000/studentLogin', {username, password})
+        .then(res => {
+            console.log(res)
+            if (res.data === "Login Successfully") {
+              // Redirect to "/adminBooks" only if authentication was successful
+              window.location.href = "/adminBooks";
+            } else {
+              alert(res.data)
+            }
+        }).catch(err => console.log(err))
+        
   }  
   return (
-    <section className='bg-green-100 h-screen flex items-center justify-center'>
-      <div className='box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
-      <div className='grid grid-cols-1'>
-        <div className='text-center text-3xl mb-5'>
-        <strong>LOG IN</strong>
-        </div>
-
-      <div>
-<Form {...form}>
+    <section>
+        <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Student ID</FormLabel>
+              <h1>Student Id</h1>
               <FormControl>
                 <Input placeholder="xxxx-xxxxx-xx-x" {...field} />
               </FormControl>
@@ -74,7 +95,7 @@ function Login() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <h1>Password</h1>
               <FormControl>
                 <Input type='password' {...field} />
               </FormControl>
@@ -84,20 +105,13 @@ function Login() {
             </FormItem>
           )}
         />
-        <div className='text-center'>
         <Button type="submit">Submit</Button>
-        </div>
       </form>
     </Form>
-      </div>
 
-      <div className='text-center'>
     <Button variant="link">
         <Link href="/adminLogin">Login as admin</Link>
     </Button>
-      </div>
-      </div>
-      </div>
     </section>
   )
 }
