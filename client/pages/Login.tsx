@@ -49,7 +49,6 @@ function Login() {
         .then(res => {
             console.log(res)
             if (res.data === "Login Successfully.") {
-              // Redirect to "/adminBooks" only if authentication was successful
               window.location.href = "/adminBooks";
             } else {
               alert(res.data)
