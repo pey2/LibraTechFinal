@@ -178,6 +178,17 @@ app.get("/borrow", (req, res) => {
     })
 })
 
+app.get("/adminborrow", (req, res) => {
+    const sql = "SELECT Title, Author, Genre, Status FROM books_t"
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(data);
+    })
+})
+
 
 app.listen(5000, () => {
     console.log("Server started on port 5000");

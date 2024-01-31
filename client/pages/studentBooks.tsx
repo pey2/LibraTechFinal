@@ -60,7 +60,7 @@ function StudentBooks() {
                 <td>{data.Genre}</td>
                 <td>{data.Status}</td>
                 <td>
-                  <Button>Borrow</Button>
+                  <Button className='bg-green-800'>Borrow</Button>
                 </td>
               </tr>
             ))}

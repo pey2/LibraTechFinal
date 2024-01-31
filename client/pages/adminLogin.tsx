@@ -57,8 +57,16 @@ function Login() {
   }  
 
   return (
-    <div className='bg-green-100 h-screen'>
-   <section>
+    <div className='h-screen flex items-center justify-center'
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('librarybg.jpg')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
+   <section className='container mx-auto box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
+              <div className='text-3xl mb-5 text-center'>
+          <strong>ADMIN</strong>
+        </div>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -66,7 +74,7 @@ function Login() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <h1>Username</h1>
+              <h1 className='font-bold'>Username</h1>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
@@ -82,7 +90,7 @@ function Login() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <h1>Password</h1>
+              <h1 className='font-bold'>Password</h1>
               <FormControl>
                 <Input type='password' {...field} />
               </FormControl>
@@ -92,7 +100,9 @@ function Login() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className='text-center'>
+        <Button type="submit" className='bg-green-800'>Submit</Button>
+        </div>
       </form>
     </Form>
     </section>

@@ -16,10 +16,11 @@ interface Book {
 
 function adminBooks() {
 
-    const[book, setBook] = useState<Book[]>([])
+    const[books, setBooks] = useState<Book[]>([])
+    const [searchTerm, setSearchTerm] = useState('');
     useEffect(() => {
         axios.get('http://localhost:5000/')
-        .then(res => setBook(res.data))
+        .then(res => setBooks(res.data))
         .catch(err => console.log(err))
     }, [])
 
@@ -31,19 +32,33 @@ function adminBooks() {
         console.log(err);
     }
   }
+
+    // Filter books based on the search term
+  const filteredBooks = books.filter((book) =>
+    book.Title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
     
   return (
-    <div className='bg-green-100 h-screen'>
+    <div className='bg-green-100'>
         <AdminNav />
-   <section className='d-flex vh-100 justify-content-center align-items-center'>
+   <section className='d-flex vh-100 justify-content-center align-items-center p-6'>
+        {/* Search bar */}
+        <input
+          type="text"
+          placeholder="Search by title"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="p-2 pr-36 border border-gray-300 rounded m-5"
+        />
+        <Button className='bg-green-800'>
+            <Link href="/AddBook">Add +</Link>
+        </Button>
         <div>
-            <div className='w-50 bg-white rounded'>
-                <Button>
-                    <Link href="/AddBook">Add +</Link>
-                </Button>
-                <table>
-                    <thead>
-                        <tr>
+            <div>
+                <table className='table-fixed'>
+                    <thead className="border-b font-medium">
+                        <tr 
+                        >
                             <th>Dewey Decimal</th>
                             <th>ISBN</th>
                             <th>Title</th>
@@ -55,7 +70,7 @@ function adminBooks() {
                     </thead>
                     <tbody>
                         {
-                            book.map((data, i) => (
+                            books.map((data, i) => (
                                 <tr key={i}>
                                     <td>{data.DeweyDec}</td>
                                     <td>{data.ISBN}</td>
@@ -65,10 +80,11 @@ function adminBooks() {
                                     <td>{data.Genre}</td>
                                     <td>{data.Status}</td>
                                     <td>
-                                        <Button>
+                                        <Button className='bg-green-800'>
                                             <Link href={`/UpdateBook?DeweyDec=${data.DeweyDec}`}>Update</Link>
                                         </Button>
-                                        <button onClick={e => handleDelete(data.DeweyDec)}>Delete</button>
+                                        <Button onClick={e => handleDelete(data.DeweyDec)}
+                                        className='bg-green-800'>Delete</Button>
                                     </td>
                                 </tr>
                             ))

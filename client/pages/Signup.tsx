@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import axios from 'axios'
+import NavStart from './NavStart'
 
 const formSchema = z.object({
   username: z.string().refine((value) => /^[a-zA-Z0-9]{4}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}$/.test(value), {
@@ -78,8 +79,20 @@ function signup() {
   }  
 
   return (
-    <div className='bg-green-100'>
-   <section>
+    <div>
+      <NavStart />
+      <div className='h-screen flex items-center justify-center'
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('librarybg.jpg')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '100%',
+        margin: 0
+      }}>
+  <section className='box-content h-90 w-3/6 p-4 border-4 mt-9 bg-green-500 rounded-xl'>
+          <div className='text-3xl mb-5 text-center'>
+          <strong>SIGN UP</strong>
+        </div>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -87,7 +100,7 @@ function signup() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <h1>Student Id</h1>
+              <h1 className='font-bold'>Student Id</h1>
               <FormControl>
                 <Input placeholder="xxxx-xxxxx-xx-x" {...field}/>
               </FormControl>
@@ -103,7 +116,7 @@ function signup() {
           name="LastName"
           render={({ field }) => (
             <FormItem>
-              <h1>Last Name</h1>
+              <h1 className='font-bold'>Last Name</h1>
               <FormControl>
                 <Input placeholder="" {...field}/>
               </FormControl>
@@ -119,7 +132,7 @@ function signup() {
           name="FirstName"
           render={({ field }) => (
             <FormItem>
-              <h1>First Name</h1>
+              <h1 className='font-bold'>First Name</h1>
               <FormControl>
                 <Input placeholder="" {...field}/>
               </FormControl>
@@ -135,7 +148,7 @@ function signup() {
           name="MiddleInitial"
           render={({ field }) => (
             <FormItem>
-              <h1>Middle Initial</h1>
+              <h1 className='font-bold'>Middle Initial</h1>
               <FormControl>
                 <Input placeholder="" {...field}/>
               </FormControl>
@@ -151,7 +164,7 @@ function signup() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <h1>Email</h1>
+              <h1 className='font-bold'>Email</h1>
               <FormControl>
                 <Input placeholder="" {...field}/>
               </FormControl>
@@ -167,7 +180,7 @@ function signup() {
           name="contact"
           render={({ field }) => (
             <FormItem>
-              <h1>Contact No.</h1>
+              <h1 className='font-bold'>Contact No.</h1>
               <FormControl>
                 <Input placeholder="09XXXXXXXXX" {...field}/>
               </FormControl>
@@ -183,7 +196,7 @@ function signup() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <h1>Password</h1>
+              <h1 className='font-bold'>Password</h1>
               <FormControl>
                 <Input type='password' {...field}/>
               </FormControl>
@@ -193,11 +206,14 @@ function signup() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className='text-center'>
+        <Button type="submit" className='bg-green-800'>Submit</Button>
+        </div>
       </form>
     </Form>
         
     </section>
+      </div>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import axios from 'axios'
 import React, {useState} from 'react'
 
@@ -21,44 +22,62 @@ function AddBook() {
 
 
   return (
-    <section className='d-flex vh-100 justify-content-center align-items-center'>
-        <div className='w-50 bg-white rounded p-3'>
+    <div className='bg-green-100 h-screen'>
+   <section className='h-screen flex items-center justify-center'>
+        <div className='container mx-auto box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
             <form onSubmit={handleSubmit}>
-                <h2>Add Book</h2>
+                <div className='text-3xl mb-5 text-center'>
+          <strong>ADD BOOK</strong>
+        </div>
                 <div className='mb-2'>
-                    <label htmlFor=''>Dewey Decimal</label>
-                    <input type='text' placeholder='Enter Dewey Decimal' onChange={e => setDeweyDec(e.target.value)} />
+                    <label htmlFor='' className='font-semibold'>Dewey Decimal</label> <br />
+                    <input type='text' placeholder='Enter Dewey Decimal' 
+                    onChange={e => setDeweyDec(e.target.value)} 
+                    className='rounded w-80'/>
                 </div>
 
                 <div className='mb-2'>
-                    <label htmlFor=''>ISBN</label>
-                    <input type='text' placeholder='Enter ISBN' onChange={e => setIsbn(e.target.value)} />
+                    <label htmlFor='' className='font-semibold'>ISBN</label> <br />
+                    <input type='text' placeholder='Enter ISBN' 
+                    onChange={e => setIsbn(e.target.value)} 
+                    className='rounded w-80'/>
                 </div>
 
                 <div className='mb-2'>
-                    <label htmlFor=''>Title</label>
-                    <input type='text' placeholder='Enter Title' onChange={e => setTitle(e.target.value)} />
+                    <label htmlFor='' className='font-semibold'>Title</label> <br />
+                    <input type='text' placeholder='Enter Title' 
+                    onChange={e => setTitle(e.target.value)} 
+                    className='rounded w-80'/>
                 </div>
 
                 <div className='mb-2'>
-                    <label htmlFor=''>Author</label>
-                    <input type='text' placeholder='Enter Author' onChange={e => setAuthor(e.target.value)} />
+                    <label htmlFor='' className='font-semibold'>Author</label> <br />
+                    <input type='text' placeholder='Enter Author' 
+                    onChange={e => setAuthor(e.target.value)} 
+                    className='rounded w-80'/>
                 </div>
 
                 <div className='mb-2'>
-                    <label htmlFor=''>Publisher</label>
-                    <input type='text' placeholder='Enter Publisher' onChange={e => setPublisher(e.target.value)} />
+                    <label htmlFor='' className='font-semibold'>Publisher</label> <br />
+                    <input type='text' placeholder='Enter Publisher' 
+                    onChange={e => setPublisher(e.target.value)} 
+                    className='rounded w-80'/>
                 </div>
 
-                <div className='mb-2'>
-                    <label htmlFor=''>Genre</label>
-                    <input type='text' placeholder='Enter Genre' onChange={e => setGenre(e.target.value)}/>
+                <div className='mb-5'>
+                    <label htmlFor='' className='font-semibold'>Genre</label> <br />
+                    <input type='text' placeholder='Enter Genre' 
+                    onChange={e => setGenre(e.target.value)}
+                    className='rounded w-80'/>
                 </div>
-
-                <button>Submit</button>
+                
+                <div className='text-center'>
+                    <Button className='bg-green-800'>Add Book</Button>
+                </div>
             </form>
         </div>
     </section>
+    </div>
   )
 }
 

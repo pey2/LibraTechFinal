@@ -3,10 +3,14 @@ import Nav from './Nav'
 
 function Home() {
   return (
-    <div className='bg-green-100 h-screen'>
+    <div>
         <Nav />
-        <section>
-            Welcome to LibraTech
+        <section className='h-screen flex items-center justify-center'
+      style={{
+        backgroundImage: `url('homebg.png')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
         </section>
     </div>
   )

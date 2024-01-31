@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import axios from 'axios'
+import NavStart from './NavStart'
 
 const formSchema = z.object({
   username: z.string().refine((value) => /^[a-zA-Z0-9]{4}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}$/.test(value), {
@@ -57,8 +58,18 @@ function Login() {
         
   }  
   return (
-    <div className='bg-green-100 h-screen'>
-    <section>
+    <div>
+    <NavStart />
+      <div className='h-screen flex items-center justify-center'
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('librarybg.jpg')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
+    <section className='container mx-auto box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
+      <div className='text-3xl mb-5 text-center'>
+          <strong>LOG IN</strong>
+        </div>
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -66,7 +77,7 @@ function Login() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <h1>Student Id</h1>
+              <h1 className='font-bold'>Student Id</h1>
               <FormControl>
                 <Input placeholder="xxxx-xxxxx-xx-x" {...field} />
               </FormControl>
@@ -82,7 +93,7 @@ function Login() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <h1>Password</h1>
+              <h1 className='font-bold'>Password</h1>
               <FormControl>
                 <Input type='password' {...field} />
               </FormControl>
@@ -92,14 +103,20 @@ function Login() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className='text-center'>
+        <Button type="submit" className='bg-green-800'>Login</Button>
+        </div>
+
       </form>
     </Form>
 
+    <div className='text-center'>
     <Button variant="link">
         <Link href="/adminLogin">Login as admin</Link>
     </Button>
+    </div>
     </section>
+      </div>
     </div>
   )
 }

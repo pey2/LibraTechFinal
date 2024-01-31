@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Button } from '@/components/ui/button';
 
 function UpdateBook() {
     const router = useRouter();
@@ -31,7 +32,7 @@ function UpdateBook() {
             .catch(err => console.log(err));
     }, [DeweyDec]);
 
-    function handleSubmit(event) {
+    function handleSubmit(event: { preventDefault: () => void }) {
         event.preventDefault();
 
         if (!DeweyDec) {
@@ -48,39 +49,55 @@ function UpdateBook() {
     }
 
     return (
-        <section className='d-flex vh-100 justify-content-center align-items-center'>
-            <div className='w-50 bg-white rounded p-3'>
+        <div className='bg-green-100 h-screen'>
+        <section className='h-screen flex items-center justify-center'>
+            <div className='container mx-auto box-content h-90 w-80 p-4 border-4 bg-green-500 rounded-xl'>
                 <form onSubmit={handleSubmit}>
-                    <h2>Update Book</h2>
+                <div className='text-3xl mb-5 text-center'>
+                 <strong>UPDATE BOOK</strong>
+                 </div>
                     <div className='mb-2'>
-                        <label htmlFor=''>ISBN</label>
-                        <input type='text' placeholder='Enter ISBN' value={isbn} onChange={e => setIsbn(e.target.value)} />
+                        <label htmlFor='' className='font-semibold'>ISBN</label> <br />
+                        <input type='text' placeholder='Enter ISBN' value={isbn} 
+                        onChange={e => setIsbn(e.target.value)} 
+                        className='rounded w-80'/>
                     </div>
 
                     <div className='mb-2'>
-                        <label htmlFor=''>Title</label>
-                        <input type='text' placeholder='Enter Title' value={Title} onChange={e => setTitle(e.target.value)} />
+                        <label htmlFor='' className='font-semibold'>Title</label> <br />
+                        <input type='text' placeholder='Enter Title' value={Title} 
+                        onChange={e => setTitle(e.target.value)} 
+                        className='rounded w-80'/>
                     </div>
 
                     <div className='mb-2'>
-                        <label htmlFor=''>Author</label>
-                        <input type='text' placeholder='Enter Author' value={Author} onChange={e => setAuthor(e.target.value)} />
+                        <label htmlFor='' className='font-semibold'>Author</label> <br />
+                        <input type='text' placeholder='Enter Author' value={Author} 
+                        onChange={e => setAuthor(e.target.value)} 
+                        className='rounded w-80'/>
                     </div>
 
                     <div className='mb-2'>
-                        <label htmlFor=''>Publisher</label>
-                        <input type='text' placeholder='Enter Publisher' value={Publisher} onChange={e => setPublisher(e.target.value)} />
+                        <label htmlFor='' className='font-semibold'>Publisher</label> <br />
+                        <input type='text' placeholder='Enter Publisher' value={Publisher} 
+                        onChange={e => setPublisher(e.target.value)} 
+                        className='rounded w-80'/>
                     </div>
 
-                    <div className='mb-2'>
-                        <label htmlFor=''>Genre</label>
-                        <input type='text' placeholder='Enter Genre' value={Genre} onChange={e => setGenre(e.target.value)} />
+                    <div className='mb-5'>
+                        <label htmlFor='' className='font-semibold'>Genre</label> <br />
+                        <input type='text' placeholder='Enter Genre' value={Genre} 
+                        onChange={e => setGenre(e.target.value)} 
+                        className='rounded w-80'/>
                     </div>
 
-                    <button>Update</button>
+                <div className='text-center'>
+                    <Button className='bg-green-800'>Update</Button>
+                </div>
                 </form>
             </div>
         </section>
+        </div>
     );
 }
 
