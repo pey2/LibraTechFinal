@@ -86,7 +86,6 @@ function signup() {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('librarybg.jpg')`, 
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100%',
         margin: 0
       }}>
   <section className='box-content h-90 w-3/6 p-4 border-4 mt-9 bg-green-500 rounded-xl'>
