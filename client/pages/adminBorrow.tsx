@@ -49,7 +49,7 @@ function adminBorrow() {
     );
     
     return (
-        <div className='bg-green-100'>
+        <div className='bg-green-100 h-screen'>
             <AdminNav />
     <section className='d-flex vh-100 justify-content-center align-items-center p-6'>
             {/* Search bar */}
@@ -62,30 +62,30 @@ function adminBorrow() {
             />
             <div>
                 <div>
-                    <table className='table-fixed'>
+                    <table className='table-fixed border border-collapse bg-white' style={{ width: '100%', tableLayout: 'fixed' }}>
                         <thead className="border-b font-medium">
                             <tr>
-                                <th>Student ID</th>
-                                <th>Dewey Decimal</th>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Genre</th>
-                                <th>Date Borrowed</th>
-                                <th>Due Date</th>
-                                <th>Action</th>
+                                <th className="border p-2">Student ID</th>
+                                <th className="border p-2">Dewey Decimal</th>
+                                <th className="border p-2">Title</th>
+                                <th className="border p-2">Author</th>
+                                <th className="border p-2">Genre</th>
+                                <th className="border p-2">Date Borrowed</th>
+                                <th className="border p-2">Due Date</th>
+                                <th className="border p-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 filteredBooks.map((data, i) => (
                                     <tr key={i}>
-                                        <td>{data.StudentID}</td>
-                                        <td>{data.DeweyDec}</td>
-                                        <td>{data.Title}</td>
-                                        <td>{data.Author}</td>
-                                        <td>{data.Genre}</td>
-                                        <td>{data.DateBorrow}</td>
-                                        <td>{data.DueDate}</td>
+                                        <td className="border p-2">{data.StudentID}</td>
+                                        <td className="border p-2">{data.DeweyDec}</td>
+                                        <td className="border p-2">{data.Title}</td>
+                                        <td className="border p-2">{data.Author}</td>
+                                        <td className="border p-2">{data.Genre}</td>
+                                        <td className="border p-2">{data.DateBorrow}</td>
+                                        <td className="border p-2">{data.DueDate}</td>
                                         <td>
                                             <Button className='bg-green-800' onClick={e => returnBook(data.DeweyDec)}>Returned</Button>
                                         </td>

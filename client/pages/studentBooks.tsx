@@ -68,7 +68,7 @@ function StudentBooks() {
   return (
     <div className="bg-green-100">
       <Nav />
-      <section>
+      <section className='d-flex vh-100 justify-content-center align-items-center p-6'>
         {/* Search bar */}
         <input
           type="text"
@@ -78,32 +78,34 @@ function StudentBooks() {
           className="p-2 pr-36 border border-gray-300 rounded m-5"
         />
 
-        <table>
-          <thead>
+        <div>
+        <table className='table-fixed border border-collapse bg-white' style={{ width: '100%', tableLayout: 'fixed' }}>
+          <thead className="border-b font-medium">
             <tr>
-              <th>Dewey Decimal</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Genre</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th className="border p-2">Dewey Decimal</th>
+              <th className="border p-2">Title</th>
+              <th className="border p-2">Author</th>
+              <th className="border p-2">Genre</th>
+              <th className="border p-2">Status</th>
+              <th className="border p-2">Action</th>
             </tr>
           </thead>
           <tbody>
             {filteredBooks.map((data, i) => (
               <tr key={i}>
-                <td>{data.DeweyDec}</td>
-                <td>{data.Title}</td>
-                <td>{data.Author}</td>
-                <td>{data.Genre}</td>
-                <td>{data.Status}</td>
-                <td>
+                <td className="border p-2">{data.DeweyDec}</td>
+                <td className="border p-2">{data.Title}</td>
+                <td className="border p-2">{data.Author}</td>
+                <td className="border p-2">{data.Genre}</td>
+                <td className="border p-2 text-green-800 font-bold text-center">{data.Status}</td>
+                <td className="border p-2 text-center">
                   <Button className='bg-green-800' onClick={e => borrowBook(data.DeweyDec)}>Borrow</Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </section>
     </div>
   );

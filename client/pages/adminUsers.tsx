@@ -37,7 +37,7 @@ function adminUsers() {
   );
 
   return (
-    <div className='bg-green-100'>
+    <div className='bg-green-100 h-screen'>
         <AdminNav />
    <section className='d-flex vh-100 justify-content-center align-items-center p-6'>
         {/* Search bar */}
@@ -50,32 +50,32 @@ function adminUsers() {
         />
         <div>
             <div>
-                <table className='table-fixed'>
+                <table className='table-fixed border border-collapse bg-white' style={{ width: '100%', tableLayout: 'fixed' }}>
                     <thead className="border-b font-medium">
                         <tr 
                         >
-                            <th>Student ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Middle Initial</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
+                            <th className="border p-2">Student ID</th>
+                            <th className="border p-2">Last Name</th>
+                            <th className="border p-2">First Name</th>
+                            <th className="border p-2">Middle Initial</th>
+                            <th className="border p-2">Email</th>
+                            <th className="border p-2">Contact Number</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             filteredUser.map((data, i) => (
                                 <tr key={i}>
-                                    <td>{data.StudentID}</td>
-                                    <td>{data.LastName}</td>
-                                    <td>{data.FirstName}</td>
-                                    <td>{data.MidInitial}</td>
-                                    <td>{data.Email}</td>
-                                    <td>{data.ContactNum}</td>
-                                    <td>
+                                    <td className="border p-2">{data.StudentID}</td>
+                                    <td className="border p-2">{data.LastName}</td>
+                                    <td className="border p-2">{data.FirstName}</td>
+                                    <td className="border p-2">{data.MidInitial}</td>
+                                    <td className="border p-2">{data.Email}</td>
+                                    <td className="border p-2">{data.ContactNum}</td>
+                                    <td className="border p-2">
                                         <Button className='bg-green-800'>
                                             <Link href={`/UpdateUser?StudentID=${data.StudentID}`}>Update</Link>
-                                        </Button>
+                                        </Button> <span></span>
                                         <Button onClick={e => handleDelete(data.StudentID)}
                                         className='bg-green-800'>Delete</Button>
                                     </td>

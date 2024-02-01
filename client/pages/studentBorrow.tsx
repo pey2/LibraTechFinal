@@ -43,9 +43,9 @@ function studentBorrow() {
   );
 
   return (
-    <div className="bg-green-100">
+    <div className="bg-green-100 h-screen">
       <Nav />
-      <section>
+      <section className='d-flex vh-100 justify-content-center align-items-center p-6'>
         {/* Search bar */}
         <input
           type="text"
@@ -55,26 +55,26 @@ function studentBorrow() {
           className="p-2 pr-36 border border-gray-300 rounded m-5"
         />
 
-        <table>
-          <thead>
+        <table className='table-fixed border border-collapse bg-white' style={{ width: '100%', tableLayout: 'fixed' }}>
+          <thead className="border-b font-medium">
             <tr>
-              <th>DeweyDecimal</th>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Genre</th>
-              <th>Date Borrowed</th>
-              <th>Due Date</th>
+              <th className="border p-2">DeweyDecimal</th>
+              <th className="border p-2">Title</th>
+              <th className="border p-2">Author</th>
+              <th className="border p-2">Genre</th>
+              <th className="border p-2">Date Borrowed</th>
+              <th className="border p-2">Due Date</th>
             </tr>
           </thead>
           <tbody>
             {filteredBooks.map((data, i) => (
               <tr key={i}>
-                <td>{data.DeweyDec}</td>
-                <td>{data.Title}</td>
-                <td>{data.Author}</td>
-                <td>{data.Genre}</td>
-                <td>{data.DateBorrow}</td>
-                <td>{data.DueDate}</td>
+                <td className="border p-2">{data.DeweyDec}</td>
+                <td className="border p-2">{data.Title}</td>
+                <td className="border p-2">{data.Author}</td>
+                <td className="border p-2">{data.Genre}</td>
+                <td className="border p-2">{data.DateBorrow}</td>
+                <td className="border p-2">{data.DueDate}</td>
               </tr>
             ))}
           </tbody>
