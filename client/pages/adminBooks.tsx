@@ -45,7 +45,7 @@ function adminBooks() {
         {/* Search bar */}
         <input
           type="text"
-          placeholder="Search by title"
+          placeholder="Search by Title"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="p-2 pr-36 border border-gray-300 rounded m-5"
@@ -70,7 +70,7 @@ function adminBooks() {
                     </thead>
                     <tbody>
                         {
-                            books.map((data, i) => (
+                            filteredBooks.map((data, i) => (
                                 <tr key={i}>
                                     <td>{data.DeweyDec}</td>
                                     <td>{data.ISBN}</td>

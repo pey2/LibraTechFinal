@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import axios from 'axios'
 import NavStart from './NavStart'
+import { useRouter } from 'next/router'
 
 const formSchema = z.object({
   username: z.string().refine((value) => /^[a-zA-Z0-9]{4}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{2}-[a-zA-Z0-9]{1}$/.test(value), {
@@ -32,6 +33,8 @@ const formSchema = z.object({
  
 
 function Login() {
+  const router = useRouter();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,16 +44,17 @@ function Login() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
 
     const username = values.username
     const password = values.password
 
     axios.post('http://localhost:5000/studentLogin', {username, password})
         .then(res => {
-            console.log(res)
             if (res.data === "Login Successfully.") {
-              window.location.href = "/adminBooks";
+              router.push({
+                pathname: '/Home', // The pathname of the next page
+                query: { StudentID: values.username }, // Pass the username as a query parameter
+              });
             } else {
               alert(res.data)
             }

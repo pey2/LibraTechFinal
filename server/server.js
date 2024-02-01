@@ -179,7 +179,7 @@ app.get("/borrow", (req, res) => {
 })
 
 app.get("/adminborrow", (req, res) => {
-    const sql = "SELECT Title, Author, Genre, Status FROM books_t"
+    const sql = "SELECT `StudentID`, `DeweyDec`, `Title`, `Author`, `Genre`, `DateBorrow`, `DueDate` FROM `borrow_t`"
     db.query(sql, (err, data) => {
         if (err) {
             console.error(err);
@@ -189,6 +189,154 @@ app.get("/adminborrow", (req, res) => {
     })
 })
 
+app.get("/getUsers", (req, res) => {
+    const sql = "SELECT * FROM student_t"
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(data);
+    })
+})
+
+app.get("/getUser/:StudentID", (req, res) => {
+    const sql = "SELECT * FROM student_t WHERE StudentID = ?";
+    const values = [
+        req.params.StudentID
+    ]
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(data);
+    })
+})
+
+app.delete('/deleteUser/:StudentID', (req, res) => {
+    const sql = "DELETE FROM student_t WHERE StudentID = ?;";
+    const StudentID = req.params.StudentID;
+    
+    db.query(sql, [StudentID], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(result);
+    });
+});
+
+app.put('/updateUser/:StudentID', (req, res) => {
+    const sql = "UPDATE student_t SET LastName = ?, FirstName = ?, MidInitial = ?, Email = ?, ContactNum = ? WHERE StudentID = ?";
+    const values = [
+        req.body.lastName,
+        req.body.firstName,
+        req.body.midInitial,
+        req.body.email,
+        req.body.contactNum
+    ];
+    const StudentID = req.params.StudentID;
+
+    db.query(sql, [...values, StudentID], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(result);
+    });
+});
+
+app.put('/borrowBook/:DeweyDec', (req, res) => {
+    const DeweyDec = req.params.DeweyDec;
+
+    const updateSql = `
+        UPDATE books_t
+        SET Status = 'Borrowed'
+        WHERE DeweyDec = ?;
+    `;
+
+    const insertSql = `
+        INSERT INTO borrow_t (StudentID, DeweyDec, Title, Author, Genre, DateBorrow, DueDate)
+        VALUES (?, ?, ?, ?, ?, ?, ?);
+    `;
+
+    const updateValues = [DeweyDec];
+    const insertValues = [
+        req.body.studentId,
+        DeweyDec,  // Use DeweyDec in the INSERT statement
+        req.body.title,
+        req.body.author,
+        req.body.genre,
+        req.body.dateBorrowed,
+        req.body.dueDate
+    ];
+    // Perform the UPDATE statement
+    db.query(updateSql, updateValues, (updateErr, updateResult) => {
+        if (updateErr) {
+            console.error(updateErr);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        // Perform the INSERT statement
+        db.query(insertSql, insertValues, (insertErr, insertResult) => {
+            if (insertErr) {
+                console.error(insertErr);
+                return res.status(500).json({ error: "Internal Server Error" });
+            }
+
+            // Return the combined results if needed
+            return res.json({ updateResult, insertResult });
+        });
+    });
+});
+
+app.get("/borrowedBooks/:StudentID", (req, res) => {
+    const sql = "SELECT `DeweyDec`, `Title`, `Author`, `Genre`, `DateBorrow`, `DueDate` FROM borrow_t WHERE StudentID = ?";
+    const values = [
+        req.params.StudentID
+    ]
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        return res.json(data);
+    })
+})
+
+app.put('/returnBook/:DeweyDec', (req, res) => {
+    const DeweyDec = req.params.DeweyDec;
+
+    const updateSql = `
+        UPDATE books_t
+        SET Status = 'Available'
+        WHERE DeweyDec = ?;
+    `;
+
+    const deleteSql = `
+        DELETE FROM borrow_t WHERE DeweyDec = ?
+    `;
+
+    // Perform the UPDATE statement
+    db.query(updateSql, DeweyDec, (updateErr, updateResult) => {
+        if (updateErr) {
+            console.error(updateErr);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        // Perform the INSERT statement
+        db.query(deleteSql, DeweyDec, (insertErr, insertResult) => {
+            if (insertErr) {
+                console.error(insertErr);
+                return res.status(500).json({ error: "Internal Server Error" });
+            }
+
+            // Return the combined results if needed
+            return res.json({ updateResult, insertResult });
+        });
+    });
+});
 
 app.listen(5000, () => {
     console.log("Server started on port 5000");
