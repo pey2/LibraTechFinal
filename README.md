@@ -1,5 +1,10 @@
 LibraTech: Your Library Management System
 
+Website Link: https://libra-tech-final.vercel.app/
+For Admin Login information:
+Username: Admin
+Password: 12345A
+
 Note: Kindly import the library.sql to phpmyadmin server and activate apache and mysql on xampp.
 
 ** HOW TO RUN THE CODE **
